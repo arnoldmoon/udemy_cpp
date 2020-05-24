@@ -25,7 +25,7 @@ class Game {
     int play(const int guess);
 
  private:
-    static const int MAX_TRIES = 3;
+    static const int MAX_TRIES = 5;
 
     void _correct_answer();
     void _hint(const int result);

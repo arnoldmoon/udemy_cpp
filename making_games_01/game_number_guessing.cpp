@@ -20,7 +20,7 @@ Game_cout::Game_cout() : std::ostream(this) {}
 
 int
 Game_cout::overflow(int c) {
-    std::cout.put(static_cast<char>(c));
+    std::cout.put(c);
     return 0;
 }
 
@@ -38,6 +38,9 @@ Game::random() {
 
 int
 Game::random(const int min, const int max) {
+    if (max <= min) {
+        return min;
+    }
     srand(clock());
     return min + (rand() % (max - min));
 }
@@ -100,18 +103,24 @@ Game::play(const int guess) {
 
 int main() {
 
-    bool won;
-
+    bool won = false;
+    int game_no = 0;
     do {
         Game game;
         std::cout << "#########################################################"
                      "#######################" << std::endl;
+        std::cout << "game " << ++game_no << std::endl << std::endl;
+
+        int tries = 0;
         int result = 0;
         int min = 0;
         int max = Game::MAX_NUMBER;
         do {
-            int guess = Game::random(min, max);
-            std::cout << guess << "?" << std::endl;
+            int guess = ++tries < 3
+                            ? (min + max) * 0.5
+                            : Game::random(min, max);
+            std::cout << "(" << min << " ~ " << max << ") "
+                      << guess << "?" << std::endl;
             result = game.play(guess);
             switch (result) {
                 case -1:
