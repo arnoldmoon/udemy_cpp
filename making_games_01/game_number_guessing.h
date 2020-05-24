@@ -13,28 +13,27 @@ class Game_cout : private std::streambuf , public std::ostream {
 
 class Game {
  public:
-    static const int MAX_NUMBER = 100;
+    static const uint MAX_NUMBER = 100;
 
-    static int random();
-    static int random(const int min, const int max);
+    static uint random();
+    static uint random(const uint min, const uint max);
 
     Game();
-    explicit Game(const int number);
+    explicit Game(const uint number);
 
-    int guess(const int guess);
+    int8_t guess(const uint guess);
     bool play();
 
  private:
-    static const int MAX_TRIES = 6;
+    static const uint MAX_TRIES = 6;
 
     void _correct_answer();
-    void _hint(const int result);
     void _game_over();
 
     Game_cout _cout;
 
-    const int _number;
-    int _tries = Game::MAX_TRIES;
+    const uint _number;
+    uint _tries = Game::MAX_TRIES;
 };
 
 
