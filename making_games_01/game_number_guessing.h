@@ -1,5 +1,4 @@
 #ifndef GAME_NUMBER_GUESSING_H
-
 #define GAME_NUMBER_GUESSING_H
 
 #include <iostream>

@@ -1,20 +1,4 @@
-// #include <random>
-
-// int
-// Game::random() {
-//     std::random_device rand_dev;
-
-//     std::default_random_engine
-//         rand_gen(rand_dev());
-
-//     std::uniform_int_distribution<int>
-//         rand_dist(0, Game::MAX_NUMBER);
-
-//     return rand_dist(rand_gen);
-// }
-
 #include "./game_number_guessing.h"
-#include <iostream>
 
 Game_cout::Game_cout() : std::ostream(this) {}
 
@@ -152,3 +136,20 @@ int main() {
 
     return 0;
 }
+
+// alternate random function
+// #include <random>
+
+// int
+// Game::random() {
+//     std::random_device rand_dev;
+
+//     std::default_random_engine
+//         rand_gen(rand_dev());
+
+//     std::uniform_int_distribution<int>
+//         rand_dist(0, Game::MAX_NUMBER);
+
+//     return rand_dist(rand_gen);
+// }
+
