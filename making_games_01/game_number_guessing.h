@@ -22,10 +22,11 @@ class Game {
     Game();
     explicit Game(const int number);
 
-    int play(const int guess);
+    int guess(const int guess);
+    bool play();
 
  private:
-    static const int MAX_TRIES = 5;
+    static const int MAX_TRIES = 6;
 
     void _correct_answer();
     void _hint(const int result);

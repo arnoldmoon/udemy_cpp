@@ -78,7 +78,7 @@ Game::_game_over() {
 }
 
 int
-Game::play(const int guess) {
+Game::guess(const int guess) {
     int result = -1;
 
     if (_tries > 0) {
@@ -101,46 +101,54 @@ Game::play(const int guess) {
     return -1;
 }
 
+bool
+Game::play() {
+    int min = 0;
+    int max = MAX_NUMBER;
+    int input_num;
+    while (true) {
+        while (true) {
+            _cout << "guess the number, it's between " << min
+                      << " and " << max << std::endl;
+            if (std::cin >> input_num && input_num >= min && input_num <= max) {
+                break;
+            }
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        _cout << std::endl;
+
+        switch (guess(input_num)) {
+            case -1:
+                return false;
+
+            case 0:
+                return true;
+
+            case 1:
+                min = input_num + 1;
+                break;
+
+            case 2:
+                max = input_num - 1;
+                break;
+        }
+    }
+}
+
 int main() {
 
     bool won = false;
     int game_no = 0;
-    do {
+    while (true) {
         Game game;
         std::cout << "#########################################################"
                      "#######################" << std::endl;
         std::cout << "game " << ++game_no << std::endl << std::endl;
-
-        int tries = 0;
-        int result = 0;
-        int min = 0;
-        int max = Game::MAX_NUMBER;
-        do {
-            int guess = ++tries < 3
-                            ? (min + max) * 0.5
-                            : Game::random(min, max);
-            std::cout << "(" << min << " ~ " << max << ") "
-                      << guess << "?" << std::endl;
-            result = game.play(guess);
-            switch (result) {
-                case -1:
-                    break;
-
-                case 0:
-                    won = true;
-                    result = -1;
-
-                case 1:
-                    min = guess + 1;
-                    break;
-
-                case 2:
-                    max = guess - 1;
-                    break;
-            }
-            std::cout << std::endl;
-        } while (result != -1);
-    } while (!won);
+        if (game.play()) {
+            break;
+        }
+    }
 
     return 0;
 }
