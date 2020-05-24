@@ -4,6 +4,14 @@
 
 #include <iostream>
 
+class Game_cout : private std::streambuf , public std::ostream {
+ public:
+    Game_cout();
+
+ private:
+    int overflow(int c);
+};
+
 class Game {
  public:
     static const int MAX_NUMBER = 100;
@@ -23,11 +31,10 @@ class Game {
     void _hint(const int result);
     void _game_over();
 
+    Game_cout _cout;
+
     const int _number;
     int _tries = Game::MAX_TRIES;
-
-    char _msg[15];
-    std::size_t _msg_size = sizeof(_msg);
 };
 
 

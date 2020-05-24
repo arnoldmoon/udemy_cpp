@@ -14,6 +14,15 @@
 // }
 
 #include "./game_number_guessing.h"
+#include <iostream>
+
+Game_cout::Game_cout() : std::ostream(this) {}
+
+int
+Game_cout::overflow(int c) {
+    std::cout.put(static_cast<char>(c));
+    return 0;
+}
 
 Game::Game() : _number(random()) {
 }
@@ -33,23 +42,10 @@ Game::random(const int min, const int max) {
     return min + (rand() % (max - min));
 }
 
-namespace {
-
-void
-Game_log_msg(const char* _msg, bool endl = true) {
-    if (endl) {
-        std::cout << _msg << std::endl;
-    } else {
-        std::cout << _msg << " ";
-    }
-}
-
-} /*namespace*/
-
 void
 Game::_correct_answer() {
     _tries = -1;
-    Game_log_msg("correct, you won!");
+    _cout << "correct, you won!";
 }
 
 void
@@ -57,28 +53,25 @@ Game::_hint(const int result) {
     switch (result) {
 
         case 1:
-            Game_log_msg("too low.", false);
+            _cout << "too low, ";
             break;
 
         case 2:
-            Game_log_msg("too high.", false);
+            _cout << "too high, ";
             break;
     }
 
     if (_tries > 1) {
-        snprintf(_msg, _msg_size, "%d more guesses.", _tries);
-        Game_log_msg(_msg);
+        _cout << _tries << " more guesses." << std::endl;
 
     } else {
-        Game_log_msg("one last guess?");
+        _cout << "one last guess?" << std::endl;
     }
 }
 
 void
 Game::_game_over() {
-    Game_log_msg("Game is over.", false);
-    snprintf(_msg, _msg_size, "Answer was %d.", _number);
-    Game_log_msg(_msg);
+    _cout << "Game is over, answer was " << _number << "." << std::endl;
 }
 
 int
