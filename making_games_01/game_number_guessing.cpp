@@ -116,6 +116,10 @@ int main() {
         if (game.play()) {
             break;
         }
+        std::cout << "press enter to continue..." << std::endl;
+        std::cin.get();
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
     return 0;
