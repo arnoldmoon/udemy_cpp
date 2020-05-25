@@ -21,8 +21,8 @@ class Game {
     Game();
     explicit Game(const uint number);
 
-    int8_t guess(const uint input_num);
-    bool play();
+    const int8_t guess(const uint input_num);
+    const bool play();
 
  private:
     static const uint MAX_TRIES = 6;

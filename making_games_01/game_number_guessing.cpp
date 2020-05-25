@@ -40,7 +40,7 @@ Game::_game_over() {
     _cout << "Game is over, answer was " << _number << "." << std::endl;
 }
 
-int8_t
+const int8_t
 Game::guess(const uint input_num) {
     if (_tries > 0) {
         --_tries;
@@ -82,7 +82,7 @@ Game::_get_num(const uint min, const uint max) {
     }
 }
 
-bool
+const bool
 Game::play() {
     uint min = 0;
     uint max = MAX_NUMBER;
