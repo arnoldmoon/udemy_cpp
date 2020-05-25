@@ -1,4 +1,5 @@
 #include "./game_number_guessing.h"
+#include <limits>
 
 Game_cout::Game_cout() : std::ostream(this) {}
 
@@ -49,23 +50,35 @@ Game::guess(const uint input_num) {
             return 0;
         }
 
+        if (_tries == 0) {
+            return -1;
+        }
         return input_num < _number ? 1 : 2;
     }
 
     return -1;
 }
 
+void
+Game::_hint(const uint min, const uint max) {
+    if (min == max) {
+        _cout << "it seems answer would be " << min << "." << std::endl;
+    } else {
+        _cout << "guess the number, it'd be between " << min
+              << " and " << max << std::endl;
+    }
+}
+
 const uint
 Game::_get_num(const uint min, const uint max) {
     uint input_num;
     while (true) {
-        _cout << "guess the number, it's between " << min
-                  << " and " << max << std::endl;
         if (std::cin >> input_num && input_num >= min && input_num <= max) {
             return input_num;
         }
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        _cout << "invalid input, please try again." << std::endl;
     }
 }
 
@@ -75,6 +88,7 @@ Game::play() {
     uint max = MAX_NUMBER;
     uint input_num;
     while (true) {
+        _hint(min, max);
         input_num = _get_num(min, max);
         _cout << std::endl;
 
@@ -112,7 +126,7 @@ int main() {
     bool won = false;
     uint game_no = 0;
     while (true) {
-        Game game(6);
+        Game game;
 
         // clear screen
         std::cout << "\033[2J\033[1;1H";

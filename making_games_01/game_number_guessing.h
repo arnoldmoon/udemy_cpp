@@ -28,6 +28,7 @@ class Game {
     static const uint MAX_TRIES = 6;
 
     const uint _get_num(const uint min = 0, const uint max = MAX_NUMBER);
+    void _hint(const uint min, const uint max);
     void _correct_answer();
     void _game_over();
 
