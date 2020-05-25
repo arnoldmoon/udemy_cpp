@@ -21,12 +21,13 @@ class Game {
     Game();
     explicit Game(const uint number);
 
-    int8_t guess(const uint guess);
+    int8_t guess(const uint input_num);
     bool play();
 
  private:
     static const uint MAX_TRIES = 6;
 
+    const uint _get_num(const uint min = 0, const uint max = MAX_NUMBER);
     void _correct_answer();
     void _game_over();
 

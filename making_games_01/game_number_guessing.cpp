@@ -40,19 +40,33 @@ Game::_game_over() {
 }
 
 int8_t
-Game::guess(const uint guess) {
-    if (_tries > 1) {
+Game::guess(const uint input_num) {
+    if (_tries > 0) {
         --_tries;
 
-        if (guess == _number) {
+        if (input_num == _number) {
             _tries = -1;
             return 0;
         }
 
-        return guess < _number ? 1 : 2;
+        return input_num < _number ? 1 : 2;
     }
 
     return -1;
+}
+
+const uint
+Game::_get_num(const uint min, const uint max) {
+    uint input_num;
+    while (true) {
+        _cout << "guess the number, it's between " << min
+                  << " and " << max << std::endl;
+        if (std::cin >> input_num && input_num >= min && input_num <= max) {
+            return input_num;
+        }
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 }
 
 bool
@@ -61,15 +75,7 @@ Game::play() {
     uint max = MAX_NUMBER;
     uint input_num;
     while (true) {
-        while (true) {
-            _cout << "guess the number, it's between " << min
-                      << " and " << max << std::endl;
-            if (std::cin >> input_num && input_num >= min && input_num <= max) {
-                break;
-            }
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        input_num = _get_num(min, max);
         _cout << std::endl;
 
         switch (guess(input_num)) {
@@ -106,7 +112,7 @@ int main() {
     bool won = false;
     uint game_no = 0;
     while (true) {
-        Game game;
+        Game game(6);
 
         // clear screen
         std::cout << "\033[2J\033[1;1H";
