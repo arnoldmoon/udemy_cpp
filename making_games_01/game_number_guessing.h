@@ -2,6 +2,7 @@
 #define GAME_NUMBER_GUESSING_H
 
 #include <iostream>
+#include <string>
 
 class Game_cout : private std::streambuf , public std::ostream {
  public:
@@ -32,7 +33,8 @@ class Game {
     void _correct_answer();
     void _game_over();
 
-    Game_cout _cout;
+    void _cout() const;
+    void _cout(const std::string& msg, const bool endl = true) const;
 
     const uint _number;
     uint _tries = Game::MAX_TRIES;

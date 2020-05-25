@@ -31,13 +31,26 @@ Game::random(const uint min, const uint max) {
 }
 
 void
+Game::_cout() const {
+    std::cout << std::endl;
+}
+
+void
+Game::_cout(const std::string& msg, const bool endl) const {
+    std::cout << msg;
+    if (endl) {
+        std::cout << std::endl;
+    }
+}
+
+void
 Game::_correct_answer() {
-    _cout << "correct, you won!";
+    _cout("correct, you won!");
 }
 
 void
 Game::_game_over() {
-    _cout << "Game is over, answer was " << _number << "." << std::endl;
+    _cout("Game is over, answer was " + std::to_string(_number) + ".");
 }
 
 const int8_t
@@ -62,10 +75,10 @@ Game::guess(const uint input_num) {
 void
 Game::_hint(const uint min, const uint max) {
     if (min == max) {
-        _cout << "it seems answer would be " << min << "." << std::endl;
+        _cout("it seems answer would be " + std::to_string(min));
     } else {
-        _cout << "guess the number, it'd be between " << min
-              << " and " << max << std::endl;
+        _cout("guess the number, it'd be between "
+              + std::to_string(min) + " and " + std::to_string(max) + ".");
     }
 }
 
@@ -78,7 +91,7 @@ Game::_get_num(const uint min, const uint max) {
         }
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        _cout << "invalid input, please try again." << std::endl;
+        _cout("invalid input, please try again.");
     }
 }
 
@@ -90,7 +103,7 @@ Game::play() {
     while (true) {
         _hint(min, max);
         input_num = _get_num(min, max);
-        _cout << std::endl;
+        _cout();
 
         switch (guess(input_num)) {
             case -1:
@@ -103,20 +116,20 @@ Game::play() {
 
             case 1:
                 min = input_num + 1;
-                _cout << "too low, ";
+                _cout("too low, ", false);
                 break;
 
             case 2:
                 max = input_num - 1;
-                _cout << "too high, ";
+                _cout("too high, ", false);
                 break;
         }
 
         if (_tries > 1) {
-            _cout << _tries << " more guesses." << std::endl;
+            _cout(std::to_string(_tries) + " more guesses.");
 
         } else {
-            _cout << "one last guess?" << std::endl;
+            _cout("one last guess?");
         }
     }
 }
