@@ -4,17 +4,17 @@
 Game::Game() : _number(random()) {
 }
 
-Game::Game(const uint number) : _number(number) {
+Game::Game(const uint8_t number) : _number(number) {
 }
 
-uint
+uint8_t
 Game::random() {
     srand(clock());
     return rand() % Game::MAX_NUMBER;
 }
 
-uint
-Game::random(const uint min, const uint max) {
+uint8_t
+Game::random(const uint8_t min, const uint8_t max) {
     if (max <= min) {
         return min;
     }
@@ -75,9 +75,9 @@ Game::_msg_try_again() const {
     }
 }
 
-const uint
+const int
 Game::_get_num() const {
-    uint input_num;
+    int input_num;
     while (true) {
         if (std::cin >> input_num) {
             return input_num;
@@ -99,7 +99,7 @@ Game::player_won() const {
 }
 
 const int8_t
-Game::check_answer(const uint input_num) {
+Game::check_answer(const int input_num) {
     if (!game_is_over()) {
         --_guesses_left;
 
@@ -117,7 +117,7 @@ Game::check_answer(const uint input_num) {
 
 const bool
 Game::play() {
-    uint input_num;
+    int input_num;
     while (!game_is_over()) {
         _msg_answer_range();
         input_num = _get_num();
@@ -155,7 +155,7 @@ Game::play() {
 int main() {
 
     bool won = false;
-    uint game_no = 0;
+    uint8_t game_no = 0;
     while (true) {
         Game game;
 
@@ -180,14 +180,14 @@ int main() {
 // alternate random function
 // #include <random>
 
-// uint
+// uint8_t
 // Game::random() {
 //     std::random_device rand_dev;
 
 //     std::default_random_engine
 //         rand_gen(rand_dev());
 
-//     std::uniform_int_distribution<uint>
+//     std::uniform_int_distribution<uint8_t>
 //         rand_dist(0, Game::MAX_NUMBER);
 
 //     return rand_dist(rand_gen);
