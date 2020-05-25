@@ -42,7 +42,7 @@ Game::_msg_answer_correct() const {
 
 void
 Game::_msg_game_over() const {
-    _cout("Game is over, answer was " + std::to_string(_number) + ".");
+    _cout("game is over, answer was " + std::to_string(_number) + ".");
 }
 
 void
