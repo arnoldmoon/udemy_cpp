@@ -1,14 +1,6 @@
 #include "./game_number_guessing.h"
 #include <limits>
 
-Game_cout::Game_cout() : std::ostream(this) {}
-
-int
-Game_cout::overflow(int c) {
-    std::cout.put(c);
-    return 0;
-}
-
 Game::Game() : _number(random()) {
 }
 

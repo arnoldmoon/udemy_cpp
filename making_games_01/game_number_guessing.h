@@ -4,14 +4,6 @@
 #include <iostream>
 #include <string>
 
-class Game_cout : private std::streambuf , public std::ostream {
- public:
-    Game_cout();
-
- private:
-    int overflow(int c);
-};
-
 class Game {
  public:
     static const uint MAX_NUMBER = 100;
